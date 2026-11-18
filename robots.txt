@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://empreende-dev.github.io/sloracun-si/sitemap.xml
