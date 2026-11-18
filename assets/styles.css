@@ -600,7 +600,7 @@ footer.site-footer {
 /* Print Stylesheet: Only clean A4 Invoice! */
 @media print {
   body { background: #fff; }
-  .topbar, .hero, .no-print, .b2b-section, .ad-slot, .seo-directory, .site-footer, .modal-backdrop, .pocket-net-banner {
+  .topbar, .hero, .no-print, .b2b-section, .ad-slot, .seo-directory, .site-footer, .modal-backdrop, .pocket-net-banner, .inv-watermark {
     display: none !important;
   }
   .workspace { padding: 0 !important; }

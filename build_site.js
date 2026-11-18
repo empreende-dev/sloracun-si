@@ -404,11 +404,11 @@ function renderInteractiveCoreHTML() {
 
             <div class="cta-stack">
               <button type="button" class="btn-pro-main js-open-pro">
-                <span>Prenesi PRO PDF brez vodnega žiga + Logotip &amp; Arhiv</span>
-                <span class="price-chip">${priceLabel} enkratno</span>
+                <span>Prenesi PRO PDF brez vodnega žiga (Vrednost 3,90 €)</span>
+                <span class="price-chip">0,00 € (Danes Brezplačno!)</span>
               </button>
               <button type="button" id="freePrintBtn" class="btn-free-print">
-                Natisni / Shrani Osnovni PDF (Brezplačno — z oznako SloRačun)
+                Natisni / Shrani PDF (Brez vodnega žiga)
               </button>
             </div>
           </div>
@@ -616,32 +616,28 @@ function renderInteractiveCoreHTML() {
       ${renderAffiliateSection()}
     </div>
 
-    <!-- MICRO-PAYWALL MODAL (€3,90) -->
+    <!-- MICRO-PAYWALL PROMO MODAL (€3,90 -> 0,00 €) -->
     <div class="modal-backdrop no-print" id="proModal">
       <div class="modal-box">
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span class="hero-badge" style="margin:0;">SloRačun PRO — Doživljenjski dostop</span>
+          <span class="hero-badge" style="margin:0;background:#ecfdf5;color:#047857;border-color:#6ee7b7;">🎁 Promocijska ugodnost 2026</span>
           <button type="button" id="closeProModal" style="background:none;border:none;font-size:1.4rem;cursor:pointer;">×</button>
         </div>
         <h2 style="margin-top:12px;font-size:1.35rem;">Profesionalni PDF paket brez vodnega žiga</h2>
         <p style="color:#475569;font-size:0.9rem;margin-top:6px;">
-          Enkratno plačilo <strong>${priceLabel}</strong> (brez mesečne naročnine!) trajno odklene vso poslovno funkcionalnost v vašem brskalniku:
+          Redna cena PRO paketa je <strong>${priceLabel}</strong>, vendar vam v promocijskem obdobju doživljenjski PRO dostop omogočamo <strong>100% BREZPLAČNO</strong>:
         </p>
         <ul class="modal-list">
-          <li>✅ <strong>Čist PDF izvoz</strong> brez spodnje oznake SloRačun.si</li>
+          <li>✅ <strong>100% čist PDF izpis</strong> — brez spodnje oznake SloRačun.si</li>
           <li>✅ <strong>Lasten logotip podjetja</strong> v glavi računa, predračuna in ponudbe</li>
           <li>✅ <strong>Dvojezični EU izpis (SL / EN)</strong> za tuje naročnike</li>
-          <li>✅ <strong>Neomejeno število izdanih dokumentov</strong> z UPN / SEPA QR kodo</li>
+          <li>✅ <strong>UPN / SEPA QR koda</strong> za takojšnje mobilno plačilo naročnikov</li>
         </ul>
-        <button type="button" id="stripeCheckoutBtn" class="btn-pro-main" style="width:100%;justify-content:center;font-size:1rem;">
-          Plačaj varno s kartico / Apple Pay (${priceLabel}) →
+        <button type="button" id="promoUnlockBtn" class="btn-pro-main" style="width:100%;justify-content:center;font-size:1rem;background:linear-gradient(135deg,#059669,#047857);">
+          ⚡ Brezplačno aktiviraj PRO in prenesi PDF (0,00 €) →
         </button>
-        <div id="stripePendingNotice" style="display:none;margin-top:10px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;padding:10px;border-radius:8px;font-size:0.82rem;">
-          Plačilna povezava Stripe v € se pravkar posodablja. Če že imate aktivacijsko kodo naročila, jo vnesite spodaj.
-        </div>
-        <div style="margin-top:16px;padding-top:14px;border-top:1px solid #e2e8f0;display:flex;gap:8px;">
-          <input type="text" id="licenseInput" placeholder="Že kupljeno? Vnesite kodo..." style="flex:1;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.84rem;">
-          <button type="button" id="activateLicenseBtn" class="btn-secondary">Aktiviraj</button>
+        <div id="promoSuccessNotice" style="display:none;margin-top:10px;background:#ecfdf5;border:1px solid #6ee7b7;color:#065f46;padding:10px;border-radius:8px;font-size:0.84rem;font-weight:700;">
+          ✓ PRO paket uspešno aktiviran! Vodni žig je odstranjen in PDF je pripravljen za tisk.
         </div>
       </div>
     </div>

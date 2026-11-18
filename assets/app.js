@@ -140,7 +140,7 @@
     function refreshProState() {
       const unlocked = isProUnlocked();
       if (proTopBtn) {
-        proTopBtn.textContent = unlocked ? '✓ SloRačun PRO Aktiven' : `PRO Paket brez vodnega žiga (${(CFG.price_eur || 3.9).toFixed(2).replace('.', ',')} €)`;
+        proTopBtn.textContent = unlocked ? '✓ SloRačun PRO Aktiven (0 €)' : 'PRO Paket brez vodnega žiga (3,90 € → 0 €)';
         proTopBtn.classList.toggle('unlocked', unlocked);
       }
       if (watermarkEl) watermarkEl.style.display = unlocked ? 'none' : 'block';
@@ -388,6 +388,8 @@
     if (freePrintBtn) {
       freePrintBtn.addEventListener('click', () => {
         trackEvent('tool_click', { action: 'free_pdf_print' });
+        // Automatically ensure watermark is hidden
+        if (watermarkEl) watermarkEl.style.display = 'none';
         window.print();
       });
     }
@@ -396,6 +398,7 @@
     const openProModal = () => {
       if (isProUnlocked()) {
         trackEvent('tool_click', { action: 'pro_pdf_print' });
+        if (watermarkEl) watermarkEl.style.display = 'none';
         window.print();
         return;
       }
@@ -407,6 +410,23 @@
     const closeProBtn = document.getElementById('closeProModal');
     if (closeProBtn) closeProBtn.addEventListener('click', () => proModal.classList.remove('open'));
 
+    // Promo 100% Free Unlock Button (Perceived value 3,90 € -> 0,00 €)
+    const promoUnlockBtn = document.getElementById('promoUnlockBtn');
+    if (promoUnlockBtn) {
+      promoUnlockBtn.addEventListener('click', () => {
+        localStorage.setItem('sloracun_pro_active', 'true');
+        trackEvent('pro_promo_unlocked_free', { saved_eur: CFG.price_eur || 3.90 });
+        refreshProState();
+        renderInvoice();
+        const notice = document.getElementById('promoSuccessNotice');
+        if (notice) notice.style.display = 'block';
+        setTimeout(() => {
+          if (proModal) proModal.classList.remove('open');
+          window.print();
+        }, 500);
+      });
+    }
+
     const stripePayBtn = document.getElementById('stripeCheckoutBtn');
     if (stripePayBtn) {
       stripePayBtn.addEventListener('click', () => {
@@ -414,8 +434,12 @@
         if (CFG.stripe_payment_link && CFG.stripe_payment_link.startsWith('http')) {
           window.open(CFG.stripe_payment_link, '_blank', 'noopener');
         } else {
-          const msgEl = document.getElementById('stripePendingNotice');
-          if (msgEl) msgEl.style.display = 'block';
+          // If no active Stripe link yet, automatically unlock for free!
+          localStorage.setItem('sloracun_pro_active', 'true');
+          refreshProState();
+          renderInvoice();
+          if (proModal) proModal.classList.remove('open');
+          window.print();
         }
       });
     }
